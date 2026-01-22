@@ -1,3 +1,4 @@
+import * as d3 from "d3"
 const genealogyData = {
         name: "Adam",
         age_when_father: 130,
@@ -445,7 +446,7 @@ const genealogyData = {
             })
             .attr("cursor", "pointer");
 
-        nodeExit = node
+        var nodeExit = node
             .exit()
             .transition()
             .duration(duration)
@@ -459,7 +460,7 @@ const genealogyData = {
 
         // links
         function diagonal(s, d) {
-            path = `M ${s.x} ${s.y}
+            let path = `M ${s.x} ${s.y}
             C ${s.x} ${(s.y + d.y) / 2}
               ${d.x} ${(s.y + d.y) / 2}
               ${d.x} ${d.y}`;
