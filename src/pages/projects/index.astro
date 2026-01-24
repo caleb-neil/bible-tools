@@ -1,0 +1,28 @@
+---
+// Import the layout
+import MainLayout from '../../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Projects">
+    <div class="hero min-h-[calc(100vh-4rem)] bg-base-200">
+        <div class="hero-content text-center">
+            <div class="max-w-md">
+                <div class="card card-side bg-base-100 shadow-sm">
+                    <svg width="500" height="200">
+                        <circle r="10" cx="125" cy="50" class="node"/>
+                        <line x1="125" y1="60" x2="125" y2="100" class="link"/>
+                        <circle r="10" cx="125" cy="110" class="node"/>
+                        <line x1="125" y1="120" x2="125" y2="160" class="link"/>
+                        <circle r="10" cx="125" cy="170" class="node"/>
+                    </svg>
+                    <a href="./projects/genealogy">
+                        <div class="card-body">
+                            <h2 class="card-title">Genealogy Project</h2>
+                            <p>A new way to help you understand genealogies in the Bible</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</MainLayout>

@@ -1,17 +1,18 @@
 ---
-// Welcome to Astro! Everything between these triple-dash code fences
-// is your "component frontmatter". It never runs in the browser.
-console.log('This runs in your terminal, not the browser!');
+// Import the layout
+import MainLayout from '../layouts/MainLayout.astro';
 ---
-<!-- Below is your "component template." It's just HTML, but with
-    some magic sprinkled in to help you build great templates. -->
-<html>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>
-</html>
-<style>
-  h1 {
-    color: orange;
-  }
-</style>
+
+<MainLayout title="Home">
+  
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Welcome to BibleTools</h1>
+        <p class="py-6">A website for various study aids to help you study God's word</p>
+        <a href="./projects" class="btn btn-primary">See Projects</a>
+      </div>
+    </div>
+  </div>
+
+</MainLayout>

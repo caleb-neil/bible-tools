@@ -1,22 +1,13 @@
 ---
-import '../../../styles/style.css'
+import MainLayout from '../../../layouts/MainLayout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Tree</title>
-</head>
-<body>
-
-<div class="chart-container">
-    <h2>Adam to Noah's Generations</h2>
-    <svg id="tree-svg"></svg>
-</div>
-
-<script src="./_genealogy.js"></script>
-
-</body>
-</html>
+<MainLayout title="Genealogy Project">
+    <body>
+        <h2 class="text-5xl">Adam to Noah</h2>
+        <div class="chart-container flex justify-center">
+            <svg id="tree-svg"></svg>
+        </div>
+        <script src="./_genealogy.js"></script>
+    </body>
+</MainLayout>
