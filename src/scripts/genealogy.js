@@ -3,12 +3,12 @@ import * as d3 from "d3"
 const margin = {top: 40, right: 60, bottom: 40, left: 60};
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
+const duration = 750;
 
 const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip");
 
 const container = document.getElementById('container');
-const data = JSON.parse(container.dataset.tree);
 
 const svg = d3.select("#tree-svg")
     .attr("width", width + margin.left + margin.right)
@@ -16,9 +16,7 @@ const svg = d3.select("#tree-svg")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-let i = 0;
-const duration = 750;
-let root;
+const dropdown = document.getElementById("genealogy-select");
 
 //const treemap = d3.tree().size([height, width]);
 const treemap = d3.tree().nodeSize([50, 200]);
@@ -26,11 +24,29 @@ const stratify = d3.stratify()
     .id(d => d.id)
     .parentId(d => d.parentid);
 
-root = stratify(data);
-root.x0 = height / 2;
-root.y0 = 0;
+var root;
 
-update(root);
+dropdown.addEventListener("change", async (event) => {
+    const selectedId = event.target.value;
+
+    try {
+        const response = await fetch(`/api/genealogy/${selectedId}`);
+        
+        if (!response.ok) throw new Error("Failed to fetch");
+
+        const data = await response.json();
+
+        root = stratify(data);
+        root.x0 = height / 2;
+        root.y0 = 0;
+
+        update(data); 
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = "Error loading data.";
+    }
+});
 
 function update(source) {
     const genealogyData = treemap(root);

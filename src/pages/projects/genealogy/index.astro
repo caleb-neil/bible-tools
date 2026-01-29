@@ -1,13 +1,28 @@
 ---
 import MainLayout from '../../../layouts/MainLayout.astro';
+import sql from '../../../lib/db.js';
+
+const genealogy_names = await sql`
+SELECT 
+    id,
+    name
+FROM sources;
+`;
 ---
 
 <MainLayout title="Genealogy Project">
     <body>
-        <h2 class="text-5xl">Adam to Noah</h2>
-        <div class="chart-container flex justify-center">
+        <select id="genealogy-select" class="select select-bordered w-full max-w-xs">
+        <option disabled selected>Pick a Family Tree</option>
+            {genealogy_names.map((g) => (
+                <option value={g.id}>{g.name}</option>
+            ))}
+        </select>
+        
+        <div id="container" class="chart-container flex justify-center">
             <svg id="tree-svg"></svg>
         </div>
-        <script src="./_genealogy.js"></script>
+
+        <script src="../../../scripts/genealogy.js"></script>
     </body>
 </MainLayout>
