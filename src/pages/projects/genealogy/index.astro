@@ -12,17 +12,53 @@ FROM sources;
 
 <MainLayout title="Genealogy Project">
     <body>
-        <select id="genealogy-select" class="select select-bordered w-full max-w-xs">
-        <option disabled selected>Pick a Family Tree</option>
-            {genealogy_names.map((g) => (
-                <option value={g.id}>{g.name}</option>
-            ))}
-        </select>
-        
-        <div id="container" class="chart-container flex justify-center">
-            <svg id="tree-svg"></svg>
+        <div class="flex items-center gap-4 mb-4 mt-4">
+            <div id="select-container" class="flex flex-wrap items-center gap-2">
+                <select class="select select-bordered max-w-xs genealogy-select" data-index="0">
+                    <option disabled selected>Select Genealogy...</option>
+                    {genealogy_names.map((g) => (
+                        <option value={g.id}>{g.name}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div class="join">
+                <button id="add-btn" class="btn btn-square join-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <button id="remove-btn" class="btn btn-square join-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
-        <script src="../../../scripts/genealogy.js"></script>
+        <div id="svg-display-area" class="flex flex-wrap gap-4 w-full h-[80vh] p-4">
+            <div class="tree-wrapper flex flex-col flex-grow basis-1/3 min-w-[300px] h-full overflow-hidden" data-index="0">
+                <div class="tree-scroll-box border-2 border-base-300 rounded-xl bg-base-200 overflow-auto flex-grow">
+                    <svg id="tree-svg-0" class="min-w-max min-h-max p-4"></svg>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        /* Flex-basis 1/3 ensures we try to fit 3 per row */
+        .tree-wrapper {
+            flex: 1 1 30.333%; /* grow | shrink | basis */
+        }
+
+        /* If you want them to never be smaller than 1/3 on large screens */
+        @media (min-width: 1024px) {
+            .tree-wrapper {
+            max-width: 100%; /* Allows it to grow, but keeps the 1/3 base */
+            }
+        }
+        </style>
+
+        <script src="../../../scripts/genealogy.ts"></script>
+        <script src="../../../scripts/add_genealogy.ts"></script>
     </body>
 </MainLayout>

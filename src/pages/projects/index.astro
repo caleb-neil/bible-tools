@@ -7,21 +7,21 @@ import MainLayout from '../../layouts/MainLayout.astro';
     <div class="hero min-h-[calc(100vh-4rem)] bg-base-200">
         <div class="hero-content text-center">
             <div class="max-w-md">
-                <div class="card card-side bg-base-100 shadow-sm">
-                    <a href="./projects/genealogy">
-                        <svg width="500" height="200" style="pointer-events: none;">
+                <a href="./projects/genealogy" class="card card-side bg-base-100 shadow-sm hover:bg-base-200 transition-colors">
+                    <figure>
+                        <svg width="200" height="200" viewBox="0 0 250 200" style="pointer-events: none;">
                             <circle r="10" cx="125" cy="50" class="node"/>
                             <line x1="125" y1="60" x2="125" y2="100" class="link"/>
                             <circle r="10" cx="125" cy="110" class="node"/>
                             <line x1="125" y1="120" x2="125" y2="160" class="link"/>
                             <circle r="10" cx="125" cy="170" class="node"/>
                         </svg>
-                        <div class="card-body">
-                            <h2 class="card-title">Genealogy Project</h2>
-                            <p>A new way to help you understand genealogies in the Bible</p>
-                        </div>
-                    </a>
-                </div>
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Genealogy Project</h2>
+                        <p>A new way to help you understand genealogies in the Bible</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
