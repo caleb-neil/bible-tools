@@ -115,11 +115,20 @@ selectContainer?.addEventListener('change', async (e) => {
             .style("stroke", "steelblue")
             .style("stroke-width", "3px")
             .on("mouseover", function (event, d: any) {
+                let text = `<strong>${d.data.name}</strong>`;
+                for (const attribute in d.data) {
+                    if (attribute === "data")
+                    {
+                        for (const d_attribute in d.data[attribute]) {
+                            text += `<br/>`;
+                            text += `${d_attribute}: ${d.data[attribute][d_attribute]}`;
+                            console.log(d.data[attribute][d_attribute]);
+                        }
+                    }
+                }
                 tooltip.style("opacity", .9);
                 tooltip.html(
-                    `<strong>${d.data.name}</strong><br/>` +
-                    (d.data.age_when_father ? `Father at: ${d.data.age_when_father}<br/>` : "") +
-                    (d.data.age_when_dead ? `Died at: ${d.data.age_when_dead}` : "")
+                    text
                 );
             })
             .on("mousemove", function (event) {

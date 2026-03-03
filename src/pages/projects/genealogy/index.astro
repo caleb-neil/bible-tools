@@ -44,20 +44,6 @@ FROM sources;
             </div>
         </div>
 
-        <style>
-        /* Flex-basis 1/3 ensures we try to fit 3 per row */
-        .tree-wrapper {
-            flex: 1 1 30.333%; /* grow | shrink | basis */
-        }
-
-        /* If you want them to never be smaller than 1/3 on large screens */
-        @media (min-width: 1024px) {
-            .tree-wrapper {
-            max-width: 100%; /* Allows it to grow, but keeps the 1/3 base */
-            }
-        }
-        </style>
-
         <script src="../../../scripts/genealogy.ts"></script>
         <script src="../../../scripts/add_genealogy.ts"></script>
     </body>

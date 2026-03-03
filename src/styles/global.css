@@ -14,6 +14,7 @@
   fill: #fff;
   stroke: steelblue;
   stroke-width: 3px;
+  cursor: pointer;
 }
 
 .node text {
@@ -24,6 +25,7 @@
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+  cursor: default;
 }
 
 #tree-container { /* or whatever div wraps your #tree-svg */
@@ -44,4 +46,14 @@
     opacity: 0;
     transition: opacity 0.2s;
     box-shadow: 0px 0px 5px #aaa;
+}
+
+.tree-wrapper {
+    flex: 1 1 30.333%; /* grow | shrink | basis */
+}
+
+@media (min-width: 1024px) {
+    .tree-wrapper {
+    max-width: 100%; /* Allows it to grow, but keeps the 1/3 base */
+    }
 }

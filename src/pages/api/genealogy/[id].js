@@ -6,33 +6,39 @@ export async function GET({ params, request }) {
     const genealogyId = params.id;
 
     try {
-        // 1. Ask the database for the specific tree data
-        // (Adjust this query to match your actual table structure)
         const treeData = await sql`
-        SELECT 
-            p.id, 
-            p.name, 
-            le.parent_id as parentId
-        FROM people p
-        LEFT JOIN lineage_entries le ON p.id = le.child_id
-        WHERE le.source_id = ${genealogyId}
-
-        UNION
-
-        SELECT 
-            p.id, 
-            p.name, 
-            NULL as parentId
-        FROM people p
-        WHERE p.id IN (
-            SELECT parent_id FROM lineage_entries WHERE source_id = ${genealogyId}
+        WITH tree_links AS (
+            SELECT 
+                le.child_id AS id,
+                le.parent_id AS parentId,
+                p.name,
+                p.data,
+                le.sort_order
+            FROM lineage_entries le
+            JOIN people p ON le.child_id = p.id
+            WHERE le.source_id = ${genealogyId}
+        ),
+        tree_root AS (
+            SELECT 
+                p.id,
+                NULL::int AS parentId, -- Root has no parent
+                p.name,
+                p.data,
+                -1 AS sort_order -- Ensure root comes first
+            FROM people p
+            WHERE p.id IN (
+                SELECT parent_id FROM lineage_entries WHERE source_id = ${genealogyId}
+            )
+            AND p.id NOT IN (
+                SELECT child_id FROM lineage_entries WHERE source_id = ${genealogyId}
+            )
         )
-        AND p.id NOT IN (
-            SELECT child_id FROM lineage_entries WHERE source_id = ${genealogyId}
-        );
+        SELECT * FROM tree_root
+        UNION ALL
+        SELECT * FROM tree_links
+        ORDER BY sort_order ASC;
         `;
 
-        // 2. Send the JSON back to the browser
         return new Response(JSON.stringify(treeData), {
         status: 200,
         headers: {
